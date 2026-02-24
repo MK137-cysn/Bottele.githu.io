@@ -1,20 +1,20 @@
 const PIN_CODE = "0319995568";
 const TELEGRAM_BOT_TOKEN = '8340408055:AAF3P6mP_otUjtAnf535VD5aZaEQmOLXHKc';
-const TELEGRAM_CHAT_ID = '-1003849367168'; // បានកែលេខ ID ថ្មីនៅទីនេះ
+const TELEGRAM_CHAT_ID = '-1003849367168';
 
 const wrapper = document.getElementById('mainWrapper');
 const adminToggleBtn = document.getElementById('btnAdminMode');
 let isAdmin = false;
 
-// ១. ប្រព័ន្ធ Admin
+// ១. Admin Mode
 adminToggleBtn.addEventListener('click', () => {
     if (!isAdmin) {
-        if (prompt("សូមបញ្ចូលលេខកូដសម្ងាត់ (0319...)៖") === PIN_CODE) {
+        if (prompt("បញ្ចូលកូដសម្ងាត់៖") === PIN_CODE) {
             isAdmin = true;
             document.body.classList.replace('admin-off', 'admin-on');
             adminToggleBtn.innerHTML = "🔒 LOCK ADMIN";
             updateEditable(true);
-        } else { alert("លេខកូដមិនត្រឹមត្រូវ!"); }
+        }
     } else {
         isAdmin = false;
         document.body.classList.replace('admin-on', 'admin-off');
@@ -27,47 +27,52 @@ function updateEditable(state) {
     document.querySelectorAll('.editable').forEach(el => el.contentEditable = state);
 }
 
-// ២. បង្កើតក្រដាសថ្មី
+// ២. បង្កើតក្រដាសថ្មី (Layout ការពារការជាន់គ្នា និងមាន Footer ជាប់បាត)
 document.getElementById('btnAddPage').addEventListener('click', () => {
     const pageDiv = document.createElement('div');
     pageDiv.className = 'a4-page';
     
     let headerHTML = `
-        <div style="display:flex; justify-content:center; align-items:start; position:relative;">
-            <div class="editable font-mool" style="text-align:center; font-size:17px; line-height:1.6;">
-                ព្រះរាជាណាចក្រកម្ពុជា<br>ជាតិ សាសនា ព្រះមហាក្សត្រ<br>***
+        <div class="exam-header">
+            <div class="header-row">
+                <div style="flex: 1; text-align: left;">
+                    <div class="editable font-mool">ឈ្មោះសាលា៖ .....................</div>
+                    <div class="editable font-mool" style="font-size: 13px; margin-top: 5px;">ប្រឡងប្រចាំ៖ .....................</div>
+                </div>
+                <div style="flex: 1.5; text-align: center;">
+                    <div class="editable font-mool" style="font-size: 16px;">ព្រះរាជាណាចក្រកម្ពុជា<br>ជាតិ សាសនា ព្រះមហាក្សត្រ<br>***</div>
+                </div>
+                <div style="flex: 1; text-align: right;">
+                    <div class="editable font-mool">ថ្នាក់ទី៖ .............</div>
+                    <div class="editable" style="font-size: 12px; margin-top: 5px;">សម័យប្រឡង៖ ២០២៦</div>
+                </div>
             </div>
-            <div class="editable" style="position:absolute; right:0; top:0; text-align:right; font-size:12px;">
-                សម័យប្រឡង៖ ២០២៦<br>ថ្នាក់ទី ១២
-            </div>
-        </div>
-        <div style="text-align:center; margin-top:30px;">
-            <div class="editable font-mool" style="font-size:18px;">វិទ្យាល័យ៖ ...........................................</div>
-            <div class="editable font-mool" style="font-size:24px; margin-top:15px; border-bottom:2px solid #1a1a1a; display:inline-block; padding-bottom:5px;">វិញ្ញាសា៖ .....................</div>
+            <div style="text-align: center; margin-top: 5px;"><div class="editable" style="font-weight: bold; text-decoration: underline;">វិញ្ញាសាត្រៀមប្រឡង</div></div>
+            <div style="text-align: center; margin-top: 10px;"><div class="editable font-mool" style="font-size: 24px; border-bottom: 2px solid #000; display: inline-block; padding: 0 15px 5px 15px;">វិញ្ញាសា៖ .....................</div></div>
         </div>
     `;
 
     pageDiv.innerHTML = `
-        <button class="btn-del-page" onclick="if(confirm('លុប?')) this.parentElement.remove()">លុប</button>
+        <button class="btn-del-page" onclick="this.parentElement.remove()">លុបសន្លឹកនេះ</button>
         <div class="inner-border">
             <div class="ornament top-left"></div><div class="ornament top-right"></div>
             <div class="ornament bottom-left"></div><div class="ornament bottom-right"></div>
             
-            <div class="editable" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) rotate(-45deg); font-size:55px; color:rgba(197, 160, 89, 0.12); font-family:'Khmer OS Mool Light'; white-space:nowrap; z-index:0; text-align:center;">
-                កម្មសិទ្ធិបញ្ញារបស់អ្នក
-            </div>
-
-            <div style="position:relative; z-index:1; flex-grow:1;">
+            <div class="editable" style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 50px; color: rgba(197, 160, 89, 0.08); font-family: 'Khmer OS Mool Light'; z-index: 0; white-space: nowrap; pointer-events: none;">កម្មសិទ្ធិបញ្ញារបស់អ្នក</div>
+            
+            <div style="position: relative; z-index: 10; flex-grow: 1; display: flex; flex-direction: column;">
                 ${headerHTML}
-                <div class="question-list" style="margin-top:35px;"></div>
+                <div class="question-list" style="margin-top: 30px;"></div>
             </div>
 
-            <div style="display:flex; justify-content:space-between; align-items:flex-end; position:relative; z-index:1;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" style="width:20px; height:20px;">
-                    <span class="editable" style="font-weight:bold; color:#0088cc; font-size:14px;">Channel: @YourName</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1.5px solid #eee; padding-top: 10px; margin-top: 20px; position: relative; z-index: 20;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" style="width: 20px; height: 20px;">
+                    <span class="editable" style="font-weight: bold; color: #0088cc; font-size: 14px;">Channel: @YourName</span>
                 </div>
-                <div class="editable" style="font-style:italic; font-size:12px; color:#777;">រៀបរៀងដោយ៖ ....................</div>
+                <div class="editable" style="font-style: italic; font-size: 13px; color: #555;">
+                    រៀបរៀងដោយ៖ ....................
+                </div>
             </div>
         </div>
     `;
@@ -78,85 +83,57 @@ document.getElementById('btnAddPage').addEventListener('click', () => {
 
 // ៣. បន្ថែមសំណួរ
 document.getElementById('btnAddQuestion').addEventListener('click', () => {
-    const qBody = prompt("បញ្ចូលសំណួរ៖");
-    if (!qBody) return;
-    const qPoint = prompt("បញ្ចូលពិន្ទុ៖", "10");
-    
-    const areas = document.querySelectorAll('.question-list');
-    const lastArea = areas[areas.length - 1];
-    if(!lastArea) return alert("សូមបង្កើតក្រដាសសិន!");
+    let q = prompt("បញ្ចូលសំណួរ៖");
+    if (!q) return;
+    let p = prompt("បញ្ចូលពិន្ទុ៖", "10");
+    let areas = document.querySelectorAll('.question-list');
+    let last = areas[areas.length - 1];
+    if(!last) return alert("ថែមក្រដាសសិន!");
 
-    const num = lastArea.children.length + 1;
-    const qDiv = document.createElement('div');
-    qDiv.style.cssText = "display:flex; justify-content:space-between; margin-bottom:12px; text-align:justify;";
+    let qDiv = document.createElement('div');
+    qDiv.className = 'q-row';
     qDiv.innerHTML = `
-        <div style="flex:1; padding-right:10px;"><span class="editable"><b>${num}.</b> ${qBody}</span></div>
-        <div style="white-space:nowrap;"><span class="editable" style="font-weight:bold;">(${qPoint} ពិន្ទុ)</span></div>
+        <div style="display: flex; flex: 1;">
+            <button class="btn-del-q" onclick="if(confirm('លុបសំណួរ?')) { this.closest('.q-row').remove(); saveData(); }">✕</button>
+            <div style="flex: 1;"><span class="editable"><b>សំណួរ៖</b> ${q}</span></div>
+        </div>
+        <div style="min-width: 70px; text-align: right;"><span class="editable"><b>(${p} ពិន្ទុ)</b></span></div>
     `;
-    lastArea.appendChild(qDiv);
+    last.appendChild(qDiv);
     updateEditable(isAdmin);
     saveData();
 });
 
-// ៤. ផ្ញើទៅ Telegram (មាន Error Handling)
+// ៤. ផ្ញើទៅ Telegram
 document.getElementById('btnSendTelegram').addEventListener('click', async () => {
     const pages = document.querySelectorAll('.a4-page');
-    if (pages.length === 0) return alert("គ្មានក្រដាសសម្រាប់ផ្ញើ!");
-    
+    if (pages.length === 0) return alert("គ្មានក្រដាស!");
     const wasAdmin = isAdmin;
     if (wasAdmin) { document.body.classList.replace('admin-on', 'admin-off'); updateEditable(false); }
-
-    alert("កំពុងចាប់ផ្ដើមបញ្ជូន... សូមរង់ចាំ!");
-
-    for (let i = 0; i < pages.length; i++) {
-        try {
-            const canvas = await html2canvas(pages[i], { scale: 2 });
-            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-            const formData = new FormData();
-            formData.append('chat_id', TELEGRAM_CHAT_ID);
-            formData.append('photo', blob, `page-${i + 1}.png`);
-            formData.append('caption', `📄 វិញ្ញាសា (ទំព័រទី ${i+1})\n🚀 រៀបរៀងដោយប្រព័ន្ធ Premium Exam`);
-
-            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { 
-                method: 'POST', 
-                body: formData 
-            });
-
-            const result = await response.json();
-            if (!result.ok) {
-                alert(`Error: ${result.description}`);
-            }
-        } catch (error) {
-            alert("បញ្ហាបច្ចេកទេស: " + error.message);
-        }
+    alert("កំពុងផ្ញើរូបភាព...");
+    for (let page of pages) {
+        const canvas = await html2canvas(page, { scale: 2 });
+        const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+        const fd = new FormData();
+        fd.append('chat_id', TELEGRAM_CHAT_ID);
+        fd.append('photo', blob, 'exam.png');
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd });
     }
-    
-    alert("✅ រួចរាល់!");
+    alert("ផ្ញើជោគជ័យ!");
     if (wasAdmin) { document.body.classList.replace('admin-off', 'admin-on'); updateEditable(true); }
 });
 
-// ៥. Download PNG
-document.getElementById('btnDownloadImg').addEventListener('click', () => {
-    const pages = document.querySelectorAll('.a4-page');
-    pages.forEach((page, i) => {
-        html2canvas(page, { scale: 2 }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `Exam-Page-${i+1}.png`;
-            link.href = canvas.toDataURL();
-            link.click();
-        });
-    });
-});
+// ៥. សម្អាតទិន្នន័យ
+document.getElementById('btnClearData').onclick = () => {
+    if(confirm("លុបទិន្នន័យចាស់ដែលខូច?")) { localStorage.clear(); location.reload(); }
+};
 
-// ៦. Zoom & Auto Save
 document.getElementById('zoomSlider').oninput = (e) => wrapper.style.transform = `scale(${e.target.value})`;
-function saveData() { localStorage.setItem('exam_v6_final_fix', wrapper.innerHTML); }
-document.getElementById('btnSave').onclick = () => { saveData(); alert("Saved!"); };
+function saveData() { localStorage.setItem('exam_v11_final', wrapper.innerHTML); }
+document.getElementById('btnSave').onclick = () => { saveData(); alert("រក្សាទុកបានជោគជ័យ!"); };
 
-window.onload = () => {
-    const saved = localStorage.getItem('exam_v6_final_fix');
-    if (saved) { wrapper.innerHTML = saved; updateEditable(isAdmin); }
+window.onload = () => { 
+    let s = localStorage.getItem('exam_v11_final'); 
+    if(s) { wrapper.innerHTML = s; updateEditable(isAdmin); } 
     else { document.getElementById('btnAddPage').click(); }
 };
-wrapper.addEventListener('input', saveData);
-      
