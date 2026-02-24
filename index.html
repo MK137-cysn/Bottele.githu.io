@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Luxury Exam System v6.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-off">
+
+    <nav class="luxury-navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <button class="btn-gold" id="btnAdminMode">
+                    <span class="icon">🔓</span> UNLOCK ADMIN
+                </button>
+            </div>
+
+            <div class="nav-center" id="adminTools">
+                <button class="btn-gold" id="btnAddPage">✚ NEW PAGE</button>
+                <button class="btn-gold" id="btnAddQuestion">✚ ADD QUESTION</button>
+                
+                <div class="zoom-controller">
+                    <span>ZOOM:</span>
+                    <input type="range" id="zoomSlider" min="0.4" max="1.1" step="0.05" value="0.8">
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <button class="btn-gold" id="btnSendTelegram" style="border-color: #0088cc; color: #0088cc;">🚀 SEND TO GROUP</button>
+                <button class="btn-gold" id="btnDownloadImg">🖼️ DOWNLOAD PNG</button>
+                <button class="btn-gold save" id="btnSave">💾 SAVE DATA</button>
+                <button class="btn-gold print" onclick="window.print()">🖨️ PRINT PDF</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="a4-container" id="mainWrapper">
+        </main>
+
+    <footer class="app-info">
+        Professional Exam Generator v6.0 | Telegram Bot Integrated
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
